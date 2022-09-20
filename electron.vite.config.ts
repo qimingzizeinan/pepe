@@ -5,9 +5,13 @@ import AutoImport from 'unplugin-auto-import/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import { viteMockServe } from 'vite-plugin-mock'
-
 export default defineConfig({
   main: {
+    resolve: {
+      alias: {
+        '@main': resolve('src/main/src'),
+      },
+    },
     build: {
       rollupOptions: {
         external: ['@electron-toolkit/utils'],

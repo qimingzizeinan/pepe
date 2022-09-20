@@ -1,9 +1,8 @@
-import 'reflect-metadata'
 import { app, shell, BrowserWindow } from 'electron'
 import * as path from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-// import { AppController } from '@main/controllers/index'
-// import { initSDI } from '@main/sdi'
+import { AppController } from '@main/controllers/index'
+import { initSDI } from '@main/sdi'
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
@@ -59,6 +58,14 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'))
   }
+
+  initSDI(
+    {
+      name: 'main',
+      win: mainWindow,
+    },
+    [AppController],
+  )
 }
 
 // This method will be called when Electron has finished
@@ -76,37 +83,6 @@ app.whenReady().then(() => {
   })
 
   createWindow()
-  type Constructor<T = any> = new (...args: any[]) => T
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-  const Injectable = (): ClassDecorator => _target => {}
-
-  class OtherService {
-    a = 1
-  }
-
-  @Injectable()
-  class TestService {
-    constructor(public readonly otherService: OtherService) {}
-
-    testMethod() {
-      console.log(this.otherService.a)
-    }
-  }
-
-  const Factory = <T>(target: Constructor<T>): T => {
-    // 获取所有注入的服务
-    const providers = Reflect.getMetadata('design:paramtypes', target) // [OtherService]
-    console.log('providers', providers)
-    const args = providers.map((provider: Constructor) => new provider())
-    return new target(...args)
-  }
-
-  console.log(
-    'Factory(TestService).testMethod()',
-    Factory(TestService).testMethod(),
-  ) // 1
-  // initSDI()
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the

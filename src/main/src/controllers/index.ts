@@ -1,9 +1,13 @@
-import { Controller } from '@main/sdi/index'
+import { Controller, WindowInstance } from '@main/sdi/index'
 import { AppService } from '@main/services/index'
+import { BrowserWindow } from 'electron'
 
 @Controller()
 export class AppController {
-  constructor(private appService: AppService) {}
+  constructor(
+    private appService: AppService,
+    @WindowInstance() private win: BrowserWindow,
+  ) {}
 
   //   @IpcSend('reply-msg')
   //   public replyMsg(msg: string) {

@@ -5,6 +5,9 @@ import AutoImport from 'unplugin-auto-import/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import { viteMockServe } from 'vite-plugin-mock'
+// import typescript from "@rollup/plugin-typescript";
+import { swc } from 'rollup-plugin-swc3'
+
 export default defineConfig({
   main: {
     resolve: {
@@ -17,6 +20,23 @@ export default defineConfig({
         external: ['@electron-toolkit/utils'],
       },
     },
+    plugins: [
+      swc({
+        jsc: {
+          parser: {
+            syntax: 'typescript',
+            // tsx: true, // If you use react
+            dynamicImport: true,
+            decorators: true,
+          },
+          target: 'es2021',
+          transform: {
+            decoratorMetadata: true,
+          },
+        },
+      }),
+    ],
+    esbuild: false,
   },
   preload: {
     build: {

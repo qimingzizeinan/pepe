@@ -1,6 +1,6 @@
-import { Controller, WindowInstance } from '@main/sdi/index'
+import { Controller, IpcHandle, IpcSend, WindowInstance } from '@main/sdi/index'
 import { AppService } from '@main/services/index'
-import { BrowserWindow } from 'electron'
+import { app, BrowserWindow } from 'electron'
 
 @Controller()
 export class AppController {
@@ -9,17 +9,22 @@ export class AppController {
     @WindowInstance() private win: BrowserWindow,
   ) {}
 
-  //   @IpcSend('reply-msg')
-  //   public replyMsg(msg: string) {
-  //     return `${this.appService.getDelayTime()} seconds later, the main process replies to your message: ${msg}`
-  //   }
+  @IpcSend('reply-msg')
+  public replyMsg(msg: string) {
+    return msg
+  }
 
-  //   @IpcHandle('send-msg')
-  //   public async handleSendMsg(msg: string): Promise<string> {
-  //     setTimeout(() => {
-  //       this.replyMsg(msg)
-  //     }, this.appService.getDelayTime() * 1000)
+  @IpcHandle('send-msg')
+  public sendMsg(msg: string) {
+    console.log(msg)
+    setTimeout(() => {
+      this.replyMsg(msg)
+    }, this.appService.getDelayTime() * 1000)
+    return 'Get msg'
+  }
 
-  //     return `The main process received your message: ${msg}`
-  //   }
+  @IpcHandle('exit')
+  public exit() {
+    app.quit()
+  }
 }

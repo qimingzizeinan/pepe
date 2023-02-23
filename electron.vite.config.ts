@@ -13,6 +13,7 @@ export default defineConfig({
     resolve: {
       alias: {
         '@main': resolve('src/main/src'),
+        '@ipc': resolve('src/ipc/src'),
       },
     },
     build: {
@@ -49,6 +50,7 @@ export default defineConfig({
     resolve: {
       alias: {
         '@renderer': resolve('src/renderer/src'),
+        '@ipc': resolve('src/ipc/src'),
       },
     },
     plugins: [

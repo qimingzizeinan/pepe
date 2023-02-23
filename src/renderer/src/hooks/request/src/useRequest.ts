@@ -1,5 +1,5 @@
 import { ref, computed } from 'vue'
-import { delay, debounce, throttle } from 'lodash'
+import { delay, debounce, throttle } from 'lodash-es'
 import type { IUseRequestOption, IUseRequestRequest } from './../type'
 // 引入返回值类型
 import type { YWZResponse } from '@renderer/service/index'

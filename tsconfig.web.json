@@ -1,6 +1,7 @@
 {
   "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
   "include": [
+    "src/ipc/**/*",
     "src/renderer/src/env.d.ts",
     "src/renderer/src/**/*",
     "src/renderer/src/**/*.vue",
@@ -12,6 +13,9 @@
     "paths": {
       "@renderer/*": [
         "src/renderer/src/*"
+      ],
+      "@ipc/*": [
+        "src/ipc/src/*"
       ],
     },
     "types": ["element-plus/global"]

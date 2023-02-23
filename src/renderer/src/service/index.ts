@@ -41,10 +41,12 @@ const ywzRequest = <D = any, T = any>(config: YWZRequestConfig<D, T>) => {
   }
   return request.request<YWZResponse<T>>(config)
 }
+
 // 取消请求
 export const cancelRequest = (url: string | string[]) => {
   return request.cancelRequest(url)
 }
+
 // 取消全部请求
 export const cancelAllRequest = () => {
   return request.cancelAllRequest()

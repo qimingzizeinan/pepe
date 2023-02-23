@@ -2,5 +2,6 @@
 /public/
 .vscode
 .idea
+/out/
 auto-import.d.ts
 components.d.ts
